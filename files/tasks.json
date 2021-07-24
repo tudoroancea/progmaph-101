@@ -1,0 +1,40 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "group": "build",
+            "command": "${config:C_Cpp.default.compilerPath}", // On utilise le compilateur défini par défaut dans settings.json. Pour en utiliser un autre, remplacer par la commande appropriée.
+            "args": [
+                "-Wall",
+                "-stdlib=libc++",
+                "-std=${config:C_Cpp.default.cppStandard}", // On utilise le standard C++ défini par défaut dans settings.json. Pour en utiliser un autre, remplacer par la commande appropriée.
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true,
+                "revealProblems": "onProblem"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "group": "build",
+            "dependsOn": "Build",
+            "command": "${fileDirname}/${fileBasenameNoExtension}",
+            "problemMatcher": []
+        }
+    ]
+}
